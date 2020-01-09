@@ -306,8 +306,8 @@ class fundinfo(basicinfo):
             rate.value.strip('"'))  # shengou rate in tiantianjijin, daeshengou rate discount is not considered
         self.name = name.value.strip('"')  # the name of the fund
         df = pd.DataFrame(data=infodict)
-        df = df[df['date'].isin(opendate)]
-        df = df.reset_index(drop=True)
+        # df = df[df['date'].isin(opendate)]
+        # df = df.reset_index(drop=True)
         self.price = df[df['date'] <= yesterdaydash()]
         # deal with the redemption fee attrs finally
         self._feepreprocess()
@@ -488,8 +488,8 @@ class fundinfo(basicinfo):
                 comment.append(_nfloat(items[7 * i + 6].string))
         df = pd.DataFrame({'date': date, 'netvalue': netvalue, 'totvalue': totvalue, 'comment': comment})
         df = df.iloc[::-1]
-        df = df[df['date'].isin(opendate)]
-        df = df.reset_index(drop=True)
+        # df = df[df['date'].isin(opendate)]
+        # df = df.reset_index(drop=True)
         df = df[df['date'] <= yesterdayobj()]
         if len(df) != 0:
             self.price = self.price.append(df, ignore_index=True, sort=True)
